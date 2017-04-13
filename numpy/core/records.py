@@ -111,7 +111,7 @@ class format_parser:
         out.
     aligned : bool, optional
         If True, align the fields by padding as the C-compiler would.
-        Default is False.
+        Default is True.
     byteorder : str, optional
         If specified, all the fields will be changed to the
         provided byte-order.  Otherwise, the default byte-order is
@@ -140,13 +140,13 @@ class format_parser:
 
     """
 
-    def __init__(self, formats, names, titles, aligned=False, byteorder=None):
+    def __init__(self, formats, names, titles, aligned=True, byteorder=None):
         self._parseFormats(formats, aligned)
         self._setfieldnames(names, titles)
         self._createdescr(byteorder)
         self.dtype = self._descr
 
-    def _parseFormats(self, formats, aligned=0):
+    def _parseFormats(self, formats, aligned=1):
         """ Parse the field formats """
 
         if formats is None:
@@ -408,7 +408,7 @@ class recarray(ndarray):
 
     def __new__(subtype, shape, dtype=None, buf=None, offset=0, strides=None,
                 formats=None, names=None, titles=None,
-                byteorder=None, aligned=False, order='C'):
+                byteorder=None, aligned=True, order='C'):
 
         if dtype is not None:
             descr = sb.dtype(dtype)
@@ -562,7 +562,7 @@ class recarray(ndarray):
 
 
 def fromarrays(arrayList, dtype=None, shape=None, formats=None,
-               names=None, titles=None, aligned=False, byteorder=None):
+               names=None, titles=None, aligned=True, byteorder=None):
     """ create a record array from a (flat) list of arrays
 
     >>> x1=np.array([1,2,3,4])
@@ -627,7 +627,7 @@ def fromarrays(arrayList, dtype=None, shape=None, formats=None,
     return _array
 
 def fromrecords(recList, dtype=None, shape=None, formats=None, names=None,
-                titles=None, aligned=False, byteorder=None):
+                titles=None, aligned=True, byteorder=None):
     """ create a recarray from a list of records in text form
 
         The data in the same field can be heterogeneous, they will be promoted
@@ -690,7 +690,7 @@ def fromrecords(recList, dtype=None, shape=None, formats=None, names=None,
 
 
 def fromstring(datastring, dtype=None, shape=None, offset=0, formats=None,
-               names=None, titles=None, aligned=False, byteorder=None):
+               names=None, titles=None, aligned=True, byteorder=None):
     """ create a (read-only) record array from binary data contained in
     a string"""
 
@@ -719,7 +719,7 @@ def get_remaining_size(fd):
     return size
 
 def fromfile(fd, dtype=None, shape=None, offset=0, formats=None,
-             names=None, titles=None, aligned=False, byteorder=None):
+             names=None, titles=None, aligned=True, byteorder=None):
     """Create an array from binary file data
 
     If file is a string then that file is opened, else it is assumed
@@ -788,7 +788,7 @@ def fromfile(fd, dtype=None, shape=None, offset=0, formats=None,
     return _array
 
 def array(obj, dtype=None, shape=None, offset=0, strides=None, formats=None,
-          names=None, titles=None, aligned=False, byteorder=None, copy=True):
+          names=None, titles=None, aligned=True, byteorder=None, copy=True):
     """Construct a record array from a wide-variety of objects.
     """
 
