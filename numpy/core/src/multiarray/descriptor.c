@@ -1566,7 +1566,7 @@ PyArray_DescrConverter(PyObject *obj, PyArray_Descr **at)
     }
     else if (PyList_Check(obj)) {
         /* or a list */
-        *at = _convert_from_array_descr(obj,0);
+        *at = _convert_from_array_descr(obj,1);
         if (*at == NULL) {
             if (PyErr_Occurred()) {
                 return NPY_FAIL;
